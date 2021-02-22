@@ -23,12 +23,16 @@ func main() {
 	go func() {
 		io.Copy(os.Stdout, conn) // NOTE: ignoring errors
 		log.Println("done")
+		// 单纯同步，无任何信息，和event的区别；
 		done <- struct{}{} // signal the main goroutine
 	}()
+	// main goroutine copy input to system connection.
 	mustCopy(conn, os.Stdin)
 	conn.Close()
 	<-done // wait for background goroutine to finish
 }
+// 优化：仅仅关系write半边；
+
 
 //!-
 

@@ -37,6 +37,7 @@ func main() {
 	}
 }
 
+// counts map
 func countLines(f *os.File, counts map[string]int) {
 	input := bufio.NewScanner(f)
 	for input.Scan() {
